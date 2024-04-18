@@ -19,17 +19,17 @@ views = Blueprint('views', __name__)
 @login_required
 def customer_entry():
     if request.method == 'POST':
-        customer_id = request.form.get('customer_id')
         cu_first_name = request.form.get('cu_first_name')
         cu_last_name = request.form.get('cu_last_name')
         phone_nu = request.form.get('phone_nu')
         street = request.form.get('street')
+        cu_city = request.form.get('cu_city')
         cu_state = request.form.get('cu_state')
         cu_zip = request.form.get('cu_zip')
 
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO Customer (customer_id, cu_first_name, cu_last_name, phone_nu, street, cu_state, cu_zip) VALUES (?,?,?,?,?,?,?)"
-                       , customer_id, cu_first_name, cu_last_name, phone_nu, street, cu_state, cu_zip)
+        cursor.execute("INSERT INTO Customer (cu_first_name, cu_last_name, phone_nu, street, cu_city, cu_state, cu_zip) VALUES (?,?,?,?,?,?,?)"
+                       , cu_first_name, cu_last_name, phone_nu, street, cu_city, cu_state, cu_zip)
         conn.commit()
         cursor.close()
     return render_template("customer_entry.html", user=current_user) 
@@ -50,10 +50,15 @@ def card():
         exp_date = request.form.get('exp_date')
         cvc = request.form.get('cvc')
         bank = request.form.get('bank')
+        customer_id = request.form.get('customer_id')
 
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO Card (card_no, card_fname, card_lname, exp_date, cvc, bank) VALUES (?,?,?,?,?,?)",
-                       (card_no, card_fname, card_lname, exp_date, cvc, bank))
+        try:
+            cursor.execute("INSERT INTO Card (card_no, card_fname, card_lname, exp_date, cvc, bank, customer_id) VALUES (?,?,?,?,?,?,?)",
+                        (card_no, card_fname, card_lname, exp_date, cvc, bank, customer_id))
+        except Exception as e:
+            flash(f'Error: check that the customer id is valid','error')
+
         conn.commit()
         cursor.close()
 
@@ -63,30 +68,32 @@ def card():
 @login_required
 def employee():
     if request.method == 'POST':
-        employee_id = request.form.get('employee_id')
         em_first_name = request.form.get('em_first_name')
         em_last_name = request.form.get('em_last_name')
 
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO Employee (employee_id, em_first_name, em_last_name) VALUES (?,?,?)",
-                       (employee_id, em_first_name, em_last_name))
+        cursor.execute("INSERT INTO Employee (em_first_name, em_last_name) VALUES (?,?)",
+                       (em_first_name, em_last_name))
         conn.commit()
         cursor.close()
 
     return render_template("employee.html", user=current_user)
 
-@views.route('/appointment', methods=['GET', 'POST'])
+@views.route('/appointments', methods=['GET', 'POST'])
 @login_required
-def appointment():
+def appointments():
     if request.method == 'POST':
-        appt_id = request.form.get('appt_id')
         service_id = request.form.get('service_id')
         appt_date = request.form.get('appt_date')
         appt_time = request.form.get('appt_time')
+        customer_id = request.form.get('customer_id')
 
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO Appointments (appt_id, service_id, appt_date, appt_time) VALUES (?,?,?,?)",
-                       (appt_id, service_id, appt_date, appt_time))
+        try:
+            cursor.execute("INSERT INTO Appointments (service_id, appt_date, appt_time, customer_id) VALUES (?,?,?,?)",
+                        (service_id, appt_date, appt_time, customer_id))
+        except Exception as e:
+            flash(f'Error: check that the customer id is valid: {e}','error')
         conn.commit()
         cursor.close()
 
@@ -95,28 +102,25 @@ def appointment():
     cursor.execute("SELECT * FROM CurrentAppointments")
     appointments = cursor.fetchall()
     cursor.close()
+    return render_template("appointments.html", user=current_user, appointments=appointments)
 
-    return render_template("appointment.html", user=current_user, appointments=appointments)
 
-
-@views.route('/service', methods=['GET', 'POST'])
+@views.route('/service_record', methods=['GET', 'POST'])
 @login_required
-def service():
+def service_record():
     if request.method == 'POST':
-        service_id = request.form.get('service_id')
         customer_id = request.form.get('customer_id')
         service_cost = request.form.get('service_cost')
-        employee_id = request.form.get('employee_id')
 
         cursor = conn.cursor()
         try:
-            cursor.execute("INSERT INTO Service (service_id, customer_id, service_cost, employee_id) VALUES (?,?,?,?)",
-                        (service_id, customer_id, service_cost, employee_id))
+            cursor.execute("INSERT INTO ServiceRecord (customer_id, service_cost) VALUES (?,?)",
+                        (customer_id, service_cost))
         except Exception as e:
-            flash(f'Error: check that the employee id is valid','error')
+            flash(f'Error: check that the employee id is valid: {e}','error')
         conn.commit()
         cursor.close()
 
-    return render_template("service.html", user=current_user)
+    return render_template("service_record.html", user=current_user)
 
 

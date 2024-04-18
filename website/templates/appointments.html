@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Appointment Form
+appointments Form
 {% endblock %}
 
 {% block content %}
@@ -9,11 +9,6 @@ Appointment Form
 
 <!-- Appointment Form -->
 <form method="POST">
-  <div class="form-group">
-    <label for="appt_id">Appointment ID:</label>
-    <input type="number" name="appt_id" id="appt_id" class="form-control">
-  </div>
-
   <div class="form-group">
     <label for="service_id">Service ID:</label>
     <input type="number" name="service_id" id="service_id" class="form-control">
@@ -27,6 +22,11 @@ Appointment Form
   <div class="form-group">
     <label for="appt_time">Appointment Time:</label>
     <input type="time" name="appt_time" id="appt_time" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="customer_id">Customer ID:</label>
+    <input type="number" name="customer_id" id="customer_id" class="form-control">
   </div>
 
   <div align="center">
