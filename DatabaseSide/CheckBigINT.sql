@@ -1,0 +1,1 @@
+INSERT INTO Customer (customer_id, cu_first_name, cu_last_name, phone_nu, street, cu_state, cu_zip) VALUES (3, 'Gabe', 'Benninghoff', 5749526242, '1688 N', 'IN', 46939)

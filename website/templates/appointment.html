@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}
+Appointment Form
+{% endblock %}
+
+{% block content %}
+<h1 align="center">Schedule an Appointment</h1>
+
+<!-- Appointment Form -->
+<form method="POST">
+  <div class="form-group">
+    <label for="appt_id">Appointment ID:</label>
+    <input type="number" name="appt_id" id="appt_id" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="service_id">Service ID:</label>
+    <input type="number" name="service_id" id="service_id" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="appt_date">Appointment Date:</label>
+    <input type="date" name="appt_date" id="appt_date" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="appt_time">Appointment Time:</label>
+    <input type="time" name="appt_time" id="appt_time" class="form-control">
+  </div>
+
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Schedule Appointment</button>
+  </div>
+</form>
+
+<!-- Appointments Display Button and Table -->
+<div align="center" style="margin-top: 30px;">
+    <button id="showAppointmentsBtn" class="btn btn-secondary">Show Appointments</button>
+</div>
+
+<table id="appointmentsTable" class="table table-striped" style="display: none;">
+  <thead>
+    <tr>
+      <th>Appointment ID</th>
+      <th>Service ID</th>
+      <th>Appointment Date</th>
+      <th>Appointment Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for appointment in appointments %}
+    <tr>
+      <td>{{ appointment[0] }}</td>
+      <td>{{ appointment[1] }}</td>
+      <td>{{ appointment[2] }}</td>
+      <td>{{ appointment[3] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+document.getElementById("showAppointmentsBtn").addEventListener("click", function() {
+    document.getElementById("appointmentsTable").style.display = "table";
+});
+</script>
+
+{% endblock %}

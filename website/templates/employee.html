@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+Employee
+{% endblock %}
+
+{% block content %}
+<h1 align="center">Add An Employee</h1>
+<form method="POST">
+  <div class="form-group">
+    <label for="employee_id">Employee ID:</label>
+    <input type="number" name="employee_id" id="employee_id" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="em_last_name">Employee Last Name:</label>
+    <input type="text" name="em_last_name" id="em_last_name" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="em_first_name">Employee First Name:</label>
+    <input type="text" name="em_first_name" id="em_first_name" class="form-control">
+  </div>
+
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Employee</button>
+  </div>
+</form>
+{% endblock %}

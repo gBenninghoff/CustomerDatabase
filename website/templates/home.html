@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <style>
+        /* Centering the text */
+        body {
+            text-align: center;
+        }
+
+        /* Styling the blue box */
+        .blue-box {
+            background-color: rgb(9, 9, 105);
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Styling the image */
+        .blue-box img {
+            width: 100%;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to the Home Page!</h1>
+
+    <div class="blue-box">
+        <img src="{{ url_for('static', filename='./images/CrazyCleanFinal.png') }}" alt="Home Image">
+    </div>
+
+    <div>
+        <p>Crazy Clean Carpets - Carpets So Clean It's Crazy!!</p>
+    </div>
+
+</body>
+</html>
+{% endblock %}

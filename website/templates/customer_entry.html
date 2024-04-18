@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h1 align="center">Add A Customer</h1>
+<form method="POST">
+  <div class="form-group">
+    <label for="customer_id">Customer ID:</label>
+    <input type="number" name="customer_id" id="customer_id" class="form-control">
+  </div>
+  
+  <div class="form-group">
+    <label for="cu_first_name">First Name:</label>
+    <input type="text" name="cu_first_name" id="cu_first_name" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="cu_last_name">Last Name:</label>
+    <input type="text" name="cu_last_name" id="cu_last_name" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="phone_nu">Phone Number:</label>
+    <input type="tel" name="phone_nu" id="phone_nu" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="street">Street:</label>
+    <input type="text" name="street" id="street" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="cu_state">State:</label>
+    <input type="text" name="cu_state" id="cu_state" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="cu_zip">Zip Code:</label>
+    <input type="number" name="cu_zip" id="cu_zip" class="form-control">
+  </div>
+
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Customer</button>
+  </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+Service Form
+{% endblock %}
+
+{% block content %}
+<h1 align="center">Add a Service</h1>
+<form method="POST">
+  <div class="form-group">
+    <label for="service_id">Service ID:</label>
+    <input type="number" name="service_id" id="service_id" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="customer_id">Customer ID:</label>
+    <input type="number" name="customer_id" id="customer_id" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="service_cost">Service Cost:</label>
+    <input type="number" name="service_cost" id="service_cost" step="0.01" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="employee_id">Employee ID:</label>
+    <input type="number" name="employee_id" id="employee_id" class="form-control">
+  </div>
+
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Service</button>
+  </div>
+</form>
+{% endblock %}
