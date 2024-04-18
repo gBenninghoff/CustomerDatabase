@@ -121,6 +121,11 @@ def service_record():
         conn.commit()
         cursor.close()
 
-    return render_template("service_record.html", user=current_user)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM ServiceRecord")
+    records = cursor.fetchall()
+    cursor.close()
+
+    return render_template("service_record.html", user=current_user, records=records)
 
 

@@ -21,4 +21,36 @@ Service Record
     <button type="submit" class="btn btn-primary">Add Service</button>
   </div>
 </form>
+
+<!-- Service Record Display Button and Table -->
+<div align="center" style="margin-top: 30px;">
+  <button id="serviceRecordBtn" class="btn btn-secondary">Show Records</button>
+</div>
+
+<table id="serviceRecordTable" class="table table-striped" style="display: none;">
+<thead>
+  <tr>
+    <th>Service ID</th>
+    <th>Customer ID</th>
+    <th>Service Cost</th>
+  </tr>
+</thead>
+<tbody>
+  {% for records in records %}
+  <tr>
+    <td>{{ records[0] }}</td>
+    <td>{{ records[1] }}</td>
+    <td>{{ records[2] }}</td>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+
+<script>
+document.getElementById("serviceRecordBtn").addEventListener("click", function() {
+  document.getElementById("serviceRecordTable").style.display = "table";
+});
+</script>
+
+
 {% endblock %}
