@@ -109,8 +109,11 @@ def service():
         employee_id = request.form.get('employee_id')
 
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO Service (service_id, customer_id, service_cost, employee_id) VALUES (?,?,?,?)",
-                       (service_id, customer_id, service_cost, employee_id))
+        try:
+            cursor.execute("INSERT INTO Service (service_id, customer_id, service_cost, employee_id) VALUES (?,?,?,?)",
+                        (service_id, customer_id, service_cost, employee_id))
+        except Exception as e:
+            flash(f'Error: check that the employee id is valid','error')
         conn.commit()
         cursor.close()
 
