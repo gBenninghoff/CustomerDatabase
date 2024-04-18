@@ -122,10 +122,23 @@ def service_record():
         cursor.close()
 
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM ServiceRecord")
+    cursor.execute("SELECT * FROM ServicePull")
     records = cursor.fetchall()
     cursor.close()
 
     return render_template("service_record.html", user=current_user, records=records)
 
+@views.route('/customer_search', methods=['GET', 'POST'])
+@login_required
+def customer_search():
+    if request.method == 'POST':
+        last_name = request.form.get('last_name')
+        cursor = conn.cursor()
+        query = "SELCT * FROM Customer WHERE last_name = ?"
+        cursor.execute(query, last_name)
+        found_customer = [{'customer_id': row[0], 'cu_first_name': row[1], 'cu_last_name': row[2], 'phone_nu': row[3], 'street': row[4], 'street': row[5], 'cu_city': row[6], 'cu_state': row[7], 'cu_state': row[8], 'cu_zip': row[9]} for row in cursor.fetchall()]
+
+        cursor.close()
+
+        return render_template('customer_search.html', customer_search=found_customer, search_term=last_name)
 

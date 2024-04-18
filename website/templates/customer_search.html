@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+Customer Search
+{% endblock %}
+
+{% block content %}
+<h1 align="center">Customer Search</h1>
+
+<form action="{{ url_for('views.customer_search') }}" method="post">
+  <div class="form-group">
+    <label for="last_name">Last Name:</label>
+    <input type="text" name="last_name" id="last_name" class="form-control" required>
+  </div>
+
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </div>
+</form>
+
+{% if customer_search %}
+  <h2 align="center">Search Results for "{{ search_term }}"</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for customer in customer_search %}
+        <tr>
+          <td>{{ customer['cu_first_name'] }}</td>
+          <td>{{ customer['cu_last_name'] }}</td>
+          <td>{{ customer['phone_nu'] }}</td>
+          <td>{{ customer['street'] }}</td>
+          <td>{{ customer['cu_city'] }}</td>
+          <td>{{ customer['cu_state'] }}</td>
+          <td>{{ customer['cu_zip'] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% endblock %}
